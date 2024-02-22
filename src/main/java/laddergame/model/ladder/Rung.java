@@ -1,9 +1,8 @@
 package laddergame.model.ladder;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import laddergame.model.RungCreateDecider;
+import laddergame.model.RungCreateDecider.RungCreateDecider;
 import laddergame.model.participant.Participants;
 
 public class Rung {
@@ -22,14 +21,18 @@ public class Rung {
 
   private void createRungAtPoint(int pointIndex, boolean decided) {
     boolean isLeftPointHasRung = isLeftPointHasRung(pointIndex);
-    hasRungAtPoints.add(isLeftPointHasRung ? false : decided);
+    hasRungAtPoints.add(!isLeftPointHasRung && decided);
   }
 
-  private boolean isLeftPointHasRung(int pointIndex) {
+  public boolean isLeftPointHasRung(int pointIndex) {
     return pointIndex != FIRST_POINT_INDEX && hasRungAtPoints.get(pointIndex - 1);
   }
 
   public List<Boolean> getRungPoints() {
-    return Collections.unmodifiableList(hasRungAtPoints);
+    return List.copyOf(hasRungAtPoints);
+  }
+
+  public boolean isCurrentPointHasRung(int point) {
+    return hasRungAtPoints.get(point);
   }
 }

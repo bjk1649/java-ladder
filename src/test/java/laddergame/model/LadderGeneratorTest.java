@@ -5,6 +5,7 @@ import static org.assertj.core.util.Lists.newArrayList;
 
 import java.util.List;
 import java.util.stream.Stream;
+import laddergame.model.RungCreateDecider.RungCreateDecider;
 import laddergame.model.ladder.Height;
 import laddergame.model.ladder.Ladder;
 import laddergame.model.participant.Participant;
@@ -32,19 +33,5 @@ class LadderGeneratorTest {
     // then
     assertThat(ladder.getRungs().get(0).getRungPoints()).containsExactly(true, false);
     assertThat(ladder.getRungs().get(1).getRungPoints()).containsExactly(false, true);
-  }
-
-  static class TestRungCreateDecider extends RungCreateDecider {
-
-    private final List<Boolean> isCreated;
-
-    TestRungCreateDecider(List<Boolean> isCreated) {
-      this.isCreated = isCreated;
-    }
-
-    @Override
-    public boolean decide() {
-      return isCreated.remove(0);
-    }
   }
 }
